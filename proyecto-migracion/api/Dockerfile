@@ -1,8 +1,11 @@
 
 FROM tiangolo/uvicorn-gunicorn-fastapi:python3.7
 
-COPY requirements.txt .
+WORKDIR /app
+
+COPY . .
 
 RUN pip install -r requirements.txt
 
-COPY . /app
+CMD [ "uvicorn", "main:app", "--reload", "--host", "0.0.0.0", "--port", "80" ]
+

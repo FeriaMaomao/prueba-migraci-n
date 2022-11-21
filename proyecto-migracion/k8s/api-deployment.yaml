@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    kompose.cmd: kompose convert -f docker-compose.yml
+    kompose.cmd: kompose convert -f ../docker-compose.yml
     kompose.version: 1.26.1 (HEAD)
   creationTimestamp: null
   labels:
@@ -18,7 +18,7 @@ spec:
   template:
     metadata:
       annotations:
-        kompose.cmd: kompose convert -f docker-compose.yml
+        kompose.cmd: kompose convert -f ../docker-compose.yml
         kompose.version: 1.26.1 (HEAD)
       creationTimestamp: null
       labels:
@@ -26,8 +26,14 @@ spec:
     spec:
       containers:
         - args:
-            - uvicorn main:app --reload --host 0.0.0.0 --port 80
-          image: proyecto-migracion-api
+            - uvicorn
+            - main:app
+            - --reload
+            - --host
+            - 0.0.0.0
+            - --port
+            - "80"
+          image: localhost:5000/api
           name: api
           ports:
             - containerPort: 80

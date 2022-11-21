@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    kompose.cmd: kompose convert -f docker-compose.yml
+    kompose.cmd: kompose convert -f ../docker-compose.yml
     kompose.version: 1.26.1 (HEAD)
   creationTimestamp: null
   labels:
@@ -18,7 +18,7 @@ spec:
   template:
     metadata:
       annotations:
-        kompose.cmd: kompose convert -f docker-compose.yml
+        kompose.cmd: kompose convert -f ../docker-compose.yml
         kompose.version: 1.26.1 (HEAD)
       creationTimestamp: null
       labels:
@@ -26,8 +26,10 @@ spec:
     spec:
       containers:
         - args:
-            - sh -c "sleep 10 && python -u main.py"
-          image: proyecto-migracion-listener
+            - sh
+            - -c
+            - sleep 10 && python3 -u main.py
+          image: localhost:5000/listener
           name: listener
           resources: {}
           volumeMounts:
